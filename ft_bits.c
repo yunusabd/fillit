@@ -6,14 +6,14 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/10 21:01:32 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/10 21:57:24 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "./libft/libft.h"
 
-int	read_shape(char *s)
+int		ft_read_shape(char *s)
 {
 	int		len;
 	int		i;
@@ -55,7 +55,7 @@ int		main()
 	num = 7<<28;
 	mask = 0<<31;
 	input = "#...\n#...\n#...\n#...\n";
-	masked = read_shape(input);
+	masked = ft_read_shape(input);
 	i = 0;
 	size = sizeof(int);
 	printf("Sizeof long long int: %lu\n", sizeof(double));
