@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/12 12:06:41 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/13 20:26:50 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		ft_count_char(char *s, char c)
 
 /*
 ** Check if there is a newline at the end of each line.
-** After each line, check if there is another newline.
+** After each line, check if there is another newline (more shapes).
 ** If not, check if end of string, only then return 1.
 */
 
@@ -48,6 +48,8 @@ static int		ft_check_newline(char *s)
 	int		newlines;
 
 	i = 0;
+	newlines = 0;
+	len = ft_strlen(s);
 	while (i < len)
 	{
 		j = i;
@@ -57,15 +59,32 @@ static int		ft_check_newline(char *s)
 			return (0);
 		if (s[i] == '\n' && i < len)
 		{
+			newlines++;
 			i++;
-			if (i == len)
-				return (1);
-			else if (s[i] == '\n')
-				i++;
-			else if (s[i] != '.' && s[i] != '#')
+			if (newlines != 4 && i == len)
+			{
+				printf("Newlines check failed\n");
 				return (0);
+			}
+			if (i == len)
+			{
+				printf("End of file\n");
+				return (1);
+			}
+			else if (s[i] == '\n' && newlines == 4)
+			{
+				i++;
+				printf("Number of newlines: %d\n", newlines);
+				newlines = 0;
+			}
+			else if (s[i] != '.' && s[i] != '#')
+			{
+				printf("This baby returns 0\n, s[i]: %c\n", s[i]);
+				return (0);
+			}
 		}
 	}
+	printf("Last return\n");
 	return (0);
 }
 
@@ -82,6 +101,7 @@ static int		ft_check_newline(char *s)
 ** Check if char count is a multiple of 20 (for each sqaure) + 1 newline after
 ** each shape except last.
 ** Check file content for right number of . and #.
+** Return number of shapes.
 */
 
 int				ft_check_input(char *s)
@@ -96,6 +116,9 @@ int				ft_check_input(char *s)
 	if (!((ft_count_char(s, '.') % 12) == 0))
 		return (0);
 	if (!(ft_check_newline(s)))
+	{
+		printf("Check_newlines returned 0\n");
 		return (0);
-	return (1);
+	}
+	return ((len + 1) / 21);
 }

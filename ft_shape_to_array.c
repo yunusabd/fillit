@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:46:45 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/12 14:07:34 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/14 19:39:51 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,26 @@
 */
 
 
-unsigned int	*ft_shape_to_array(char *s, int shapes)
+void				ft_input_to_array(char *s, unsigned int **dst, int shapes)
 {
-	unsigned int	*arr;
+	unsigned int	line;
 	int				i;
+	int				j;
 	char			*tmp;
 
-	arr = (unsigned int*)malloc(sizeof(*arr) * (shapes + 1));
 	i = 0;
 	while (i < shapes)
 	{
-		tmp = ft_strndup(s + i + (i * 20), 20);
-		arr[i] = ft_read_shape(tmp);
+//		dst[i] = (unsigned int*)malloc(sizeof(dst) * 4);
+		j = 0;
+		tmp = (char*)malloc(sizeof(*tmp) * 4);
+		while (j < 4)
+		{
+			tmp = ft_strndup(s + i + (j * 5) + (i * 20), 4);
+			dst[i][j] = ft_read_shape(tmp);
+			j++;
+		}
+		free(tmp);
 		i++;
 	}
-	return (arr);
-
 }

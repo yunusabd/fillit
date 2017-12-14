@@ -6,25 +6,23 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/12 22:09:02 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/14 21:12:30 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "fillit.h"
 
-int		ft_read_shape(char *s)
+unsigned int		ft_read_shape(char *s)
 {
 	int		len;
 	int		i;
 	int		j;
-	int		result;
+	unsigned int		result;
 
-	len = ft_strlen(s);
 	i = 0;
 	j = 0;
 	result = 0;
-	while (i < len)
+	while (i < 4)
 	{
 		if (s[i] == '#')
 		{
@@ -36,13 +34,13 @@ int		ft_read_shape(char *s)
 		i++;
 		j++;
 	}
-//	result = result<<15;
+	result = result>>1;
 	return (result);
 }
 
 int		main(int argc, char **argv)
 {
-	unsigned int		i;
+	int		i;
 	int					j;
 	unsigned int		size;
 	unsigned int		num;
@@ -50,16 +48,52 @@ int		main(int argc, char **argv)
 	char				*input;
 	unsigned int		mask;
 	unsigned int		masked;
-	unsigned int		*arr;
+	unsigned int		**arr;
+	int					shapes;
 
 	printf("Binary: \n%u \n", 1<<31);
 	num = 7<<28;
 	mask = 0<<31;
 	input = ft_read_file(argv[1]);
-	printf("Input file formating %s\n", (ft_check_input(input) == 0) ? "invalid" : "valid");
+	shapes = ft_check_input(input);
+	printf("Input file formating %s\n", (shapes == 0) ? "invalid" : "valid");
 	printf("__________________\n");
-	arr = ft_shape_to_array(input, 9);
-	ft_compare_shape(arr[3]);
+	arr = (unsigned int**)malloc(sizeof(*arr) * shapes);
+	i = 0;
+	while (i < shapes)
+	{
+		arr[i] = (unsigned int*)malloc(sizeof(**arr));
+		i++;
+	}
+	ft_input_to_array(input, arr, shapes);
+	i = 0;
+	while (i < shapes)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			printf("%d ", arr[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+
+	ft_compare_shapes(arr, shapes);
+	i = 0;
+	while (i < shapes)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			printf("%d ", arr[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	//ft_put_shapes(arr, shapes);	
+	/*
 	j = 0;
 	while (j < 9)
 	{
@@ -77,6 +111,7 @@ int		main(int argc, char **argv)
 		printf("______________\n");
 		j++;
 	}
+	*/
 	return (0);
 }
 
