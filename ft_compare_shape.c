@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/14 22:26:05 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/15 01:28:26 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void				ft_compare_shapes(unsigned int **shapes, int n)
 	{
 		ft_compare_shape(shapes[i], n);
 		printf("put into shapes array: %d %d %d %d\n", shapes[i][0], shapes[i][1], shapes[i][2], shapes[i][3]);
+		ft_shift_array(shapes[i], -27, 4);
 		i++;
 	}
 }

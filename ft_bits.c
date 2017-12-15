@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/14 21:12:30 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/15 16:54:39 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		main(int argc, char **argv)
 	shapes = ft_check_input(input);
 	printf("Input file formating %s\n", (shapes == 0) ? "invalid" : "valid");
 	printf("__________________\n");
-	arr = (unsigned int**)malloc(sizeof(*arr) * shapes);
+	arr = (unsigned int**)malloc(sizeof(*arr) * shapes + 1);
 	i = 0;
 	while (i < shapes)
 	{
@@ -92,7 +92,9 @@ int		main(int argc, char **argv)
 		printf("\n");
 		i++;
 	}
-	//ft_put_shapes(arr, shapes);	
+	printf("before create\n");
+	ft_create_map(arr, shapes);
+	
 	/*
 	j = 0;
 	while (j < 9)

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:21:55 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/14 20:39:54 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/15 01:15:35 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int				ft_check_input(char *s);
 void			ft_input_to_array(char *s, unsigned int **dst, int shapes);
 void			ft_compare_shapes(unsigned int **shapes, int n);
 void			ft_shift_array(unsigned int *arr, int spaces, int size);
+void			ft_create_map(unsigned int **arr, int shapes);
 
 #endif
