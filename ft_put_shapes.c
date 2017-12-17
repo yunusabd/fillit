@@ -6,29 +6,41 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:09:06 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/16 21:16:06 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/17 22:01:43 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-/* take as input: array of ints, number of shapes
-** 
+/*
+** Take as input: array of ints, number of shapes.
 ** shift shapes until [other shapes] & [shape] = 0
 */
+
+static void			ft_set_grid(unsigned int *map, int gridsize)
+{
+	int				i;
+	unsigned int	zero;
+
+	i = 0;
+	zero = 0;
+	while (i < gridsize)
+	{
+		map[i] = map[i] & (~zero >> gridsize);
+		printf("map[%d]: %d\n", i, map[i] = map[i] & (~zero >> gridsize));
+		i++;
+	}
+}
 
 static int			ft_try_shape(unsigned int *shape, unsigned
 		int *map, int line)
 {
-	int				shifted;
 	int				i;
 	int				k;
-	unsigned int	*tmp;
 
-	shifted = 0;
 	i = line;
 	k = 0;
-	if (line == 4)
+	if (line == 32)
 		return (1);
 	if ((shape[i] & map[k]) == 0)
 	{
@@ -39,12 +51,71 @@ static int			ft_try_shape(unsigned int *shape, unsigned
 			printf("successfully put line %d\n", line + 1);
 			return (1);
 		}
+		else
+		{
+			printf("next line doesnt fit, abort\n");
+			map[k] = map[k] ^ shape[i];
+			return (0);
+		}
 	}
 	else
 	{
-		printf("try_shape returned 0\n");
 		return (0);
 	}
+}
+
+/*
+** Returns 1 if the first bit on the right is 1.
+*/
+
+static int			ft_check_first_bit(unsigned int *shape)
+{
+	int				i;
+
+	i = 0;
+	while (shape[i])
+	{
+		if ((shape[i] & 1) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+
+static int			ft_shift_right(unsigned int *shape)
+{
+	int				i;
+
+	i = 0;
+	if (ft_check_first_bit(shape) == 0)
+	{
+		while (shape[i])
+		{
+			shape[i] = shape[i]>>1;
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+/* Trys to shift down the array by one line, if last line is empty.
+** Returns 1 on success.
+*/
+
+static int			ft_move_down_array(unsigned int *arr, int n)
+{
+	if (!arr[n])
+	{
+		while (n)
+		{
+			arr[n] = arr[n - 1];
+			n--;
+		}
+		return (1);
+	}
+	return (0);
 }
 
 static void			ft_remove_shape(unsigned int *shape, unsigned int *map)
@@ -52,7 +123,7 @@ static void			ft_remove_shape(unsigned int *shape, unsigned int *map)
 	int				i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 32)
 	{
 		map[i] = map[i] ^ shape[i];
 		i++;
@@ -60,67 +131,46 @@ static void			ft_remove_shape(unsigned int *shape, unsigned int *map)
 }
 
 static int			ft_put_shapes(unsigned int **shapes, unsigned
-		int *map, int gridsize, int i)
+		int *map, int i, unsigned int **sorted)
 {
-	int				shifted;
-	int				k;
-	unsigned int	*map_copy;
+	int				gridsize;
+
+	gridsize = 8;
 	//if put_shape returns zero, shift shape until gridsize limit reached
 	//then increase k.
-	
-	shifted = 0;
-	k = 0;
-	map_copy = map;
 	if (!shapes[i])
 	{
 		printf("Gridsize: %d, i: %d\n", gridsize, i);
 		return (1);
 
 	}
-	//while (ft_try_shape(shapes[i], map_copy, 0) == 0)
-	//{
-		if (ft_try_shape(shapes[i], map_copy, 0) == 0)
+	if (!sorted[i])
+	{
+		sorted[i] = (unsigned int*)malloc(sizeof(*sorted));
+		sorted[i] = ft_memcpy(sorted[i], shapes[i], 32);
+	}
+	if (ft_try_shape(sorted[i], map, 0) == 1)
+		return (ft_put_shapes(shapes, map, i + 1, sorted));
+	else
+	{
+		printf("Entered else\n");
+		if (ft_put_shapes(shapes, map, i + 1, sorted) == 0)
 		{
-			
-		
-		printf("cant place shape %d %d %d %d, ", shapes[i][0], shapes[i][1],
-				shapes[i][2], shapes[i][3]);
-		if (shifted < gridsize)
-		{
-			printf("shifted right\n");
-			ft_shift_array(shapes[i], 1, 4);
-			shifted++;
-			ft_put_shapes(shapes, map_copy, gridsize, i);
+			ft_remove_shape(sorted[i], map);
+			if (ft_shift_right(sorted[i]))
+				ft_put_shapes(shapes, map, i, sorted);
+			else if (ft_move_down_array(sorted[i], 32) == 1)
+				ft_put_shapes(shapes, map, i, sorted);
+			else if (i == 0)
+			{
+				sorted[i] = 0;
+				ft_set_grid(map, gridsize++);
+				ft_put_shapes(shapes, map, i, sorted);
+			}
+			else
+				return (0);
 		}
-		else if (k < gridsize)
-		{
-			printf("shifted down\n");
-			ft_shift_array(shapes[i], -shifted, 4);
-			shifted = 0;
-			k++;
-			map_copy += k;
-			ft_put_shapes(shapes, map_copy, gridsize, i);
-		}
-		else if (i == 0)
-		{
-			printf("increased grid size\n");
-			ft_shift_array(shapes[i], -shifted, 4);
-			shifted = 0;
-			map_copy -= k;
-			k = 0;
-			gridsize++;
-			ft_put_shapes(shapes, map_copy, gridsize, 0);
-		}
-		else
-			return (0);
-		}
-		else
-		{
-			ft_put_shapes(shapes, map_copy, gridsize, i + 1);
-		}
-	//}
-	//ft_put_shapes(shapes, map, gridsize, i + 1);
-	return (1);
+	}
 }
 
 
@@ -151,22 +201,8 @@ static int			ft_print_map(unsigned int *map)
 	return (0);
 }
 
-void				ft_set_grid(unsigned int *map, int gridsize)
-{
-	int				i;
-	unsigned int	zero;
-
-	i = 0;
-	zero = 0;
-	while (i < gridsize)
-	{
-		map[i] = map[i] & (~zero >> gridsize);
-		printf("map[%d]: %d\n", i, map[i] = map[i] & (~zero >> gridsize));
-		i++;
-	}
-}
-
-void				ft_create_map(unsigned int **arr, int shapes)
+void				ft_create_map(unsigned int **arr, int shapes, unsigned int
+		**sorted)
 {
 	int				i;
 	unsigned int	*map;
@@ -180,7 +216,7 @@ void				ft_create_map(unsigned int **arr, int shapes)
 		map[i] = ~0;
 		i++;
 	}
-	ft_set_grid(map, 8);
-	ft_put_shapes(arr, map, 8, 0);
+	ft_set_grid(map, 4);
+	ft_put_shapes(arr, map, 0, sorted);
 	ft_print_map(map);
 }
