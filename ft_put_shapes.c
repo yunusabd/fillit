@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:09:06 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/17 22:01:43 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/17 22:58:33 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int			ft_try_shape(unsigned int *shape, unsigned
 		return (1);
 	if ((shape[i] & map[k]) == 0)
 	{
-		map[k] = map[k] | shape[i];
 		printf("free space found: %d, map[%d] = %d\n", shape[i], k, map[k]);
 		if (ft_try_shape(shape, map + 1, line + 1))
 		{
@@ -53,15 +52,12 @@ static int			ft_try_shape(unsigned int *shape, unsigned
 		}
 		else
 		{
-			printf("next line doesnt fit, abort\n");
-			map[k] = map[k] ^ shape[i];
+			printf("next line (%d) doesnt fit, abort\n", line);
 			return (0);
 		}
 	}
 	else
-	{
 		return (0);
-	}
 }
 
 /*
@@ -118,15 +114,26 @@ static int			ft_move_down_array(unsigned int *arr, int n)
 	return (0);
 }
 
-static void			ft_remove_shape(unsigned int *shape, unsigned int *map)
+static void			ft_set_shape(unsigned int *shape, unsigned int *map, int s)
 {
 	int				i;
 
 	i = 0;
-	while (i < 32)
+	if (s == 0)
 	{
-		map[i] = map[i] ^ shape[i];
-		i++;
+		while (i < 32)
+		{
+			map[i] = map[i] ^ shape[i];
+			i++;
+		}
+	}
+	else if (s == 1)
+	{
+		while (i < 32)
+		{
+			map[i] = map[i] | shape[i];
+			i++;
+		}
 	}
 }
 
@@ -135,6 +142,7 @@ static int			ft_put_shapes(unsigned int **shapes, unsigned
 {
 	int				gridsize;
 
+	printf("Start ft_put_shapes\n");
 	gridsize = 8;
 	//if put_shape returns zero, shift shape until gridsize limit reached
 	//then increase k.
@@ -146,33 +154,40 @@ static int			ft_put_shapes(unsigned int **shapes, unsigned
 	}
 	if (!sorted[i])
 	{
-		sorted[i] = (unsigned int*)malloc(sizeof(*sorted));
+		printf("!sorted[i]\n");
+		sorted[i] = (unsigned int*)malloc(sizeof(*sorted) * 32);
 		sorted[i] = ft_memcpy(sorted[i], shapes[i], 32);
 	}
 	if (ft_try_shape(sorted[i], map, 0) == 1)
-		return (ft_put_shapes(shapes, map, i + 1, sorted));
-	else
 	{
-		printf("Entered else\n");
-		if (ft_put_shapes(shapes, map, i + 1, sorted) == 0)
+		printf("try_shapes == 1\n");
+		ft_set_shape(shapes[i], map, 1);
+		if (ft_put_shapes(shapes, map, i + 1, sorted) == 1)
+			return (1);
+		else
 		{
-			ft_remove_shape(sorted[i], map);
+			printf("Entered else\n");
+			ft_set_shape(sorted[i], map, 0);
 			if (ft_shift_right(sorted[i]))
 				ft_put_shapes(shapes, map, i, sorted);
 			else if (ft_move_down_array(sorted[i], 32) == 1)
 				ft_put_shapes(shapes, map, i, sorted);
-			else if (i == 0)
-			{
-				sorted[i] = 0;
-				ft_set_grid(map, gridsize++);
-				ft_put_shapes(shapes, map, i, sorted);
-			}
 			else
 				return (0);
 		}
 	}
+	else if (i == 0)
+	{
+		sorted[i] = 0;
+		gridsize++;
+		ft_set_grid(map, gridsize);
+		while (*sorted++)
+			*sorted = NULL;
+		ft_put_shapes(shapes, map, i, sorted);
+	}
+	else
+		return (0);
 }
-
 
 static int			ft_print_map(unsigned int *map)
 {
@@ -207,7 +222,7 @@ void				ft_create_map(unsigned int **arr, int shapes, unsigned int
 	int				i;
 	unsigned int	*map;
 
-	printf("start create map");
+	printf("start create map\n");
 	map = (unsigned int*)malloc(sizeof(*arr) * 33);
 	printf("sizeof(*map) * 8: %lu\n", sizeof(*map) * 8);
 	i= 0;
@@ -216,7 +231,9 @@ void				ft_create_map(unsigned int **arr, int shapes, unsigned int
 		map[i] = ~0;
 		i++;
 	}
-	ft_set_grid(map, 4);
+	ft_set_grid(map, 8);
+	printf("Set grid finished\n");
 	ft_put_shapes(arr, map, 0, sorted);
+	printf("put shapes finished\n");
 	ft_print_map(map);
 }
