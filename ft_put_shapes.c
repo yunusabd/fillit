@@ -6,15 +6,14 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:09:06 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/19 19:27:44 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:21:19 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** Take as input: array of ints, number of shapes.
-** shift shapes until [other shapes] & [shape] = 0
+** Prints out the map
 */
 
 static int			ft_print_map(unsigned int *map)
@@ -57,13 +56,12 @@ static void			ft_set_grid(unsigned int *map, int gridsize)
 	while (i < gridsize)
 	{
 		map[i] = map[i] & (~zero >> gridsize);
-		//printf("map[%d]: %d\n", i, map[i] = map[i] & (~zero >> gridsize));
 		i++;
 	}
 }
 
 /*
-** Shifts shape back to leftmost position.
+** Shifts a shape back to leftmost position.
 */
 
 static int			ft_shift_back(unsigned int *shape)
@@ -129,7 +127,8 @@ static int			ft_try_shape(unsigned int *shape, unsigned
 }
 
 /*
-** Returns 1 if the first bit on the right is 1.
+** Returns 1 if the first bit on the right is 1. Means it can't be shifted any 
+** more to the right without losing data.
 */
 
 static int			ft_check_first_bit(unsigned int *shape)
@@ -147,7 +146,8 @@ static int			ft_check_first_bit(unsigned int *shape)
 }
 
 /*
-** Returns the height of the shape
+** Returns the height of the shape, to see if shape height plus line is less
+** than the gridsize limit.
 */
 
 static int			ft_shape_height(unsigned int *s)
@@ -209,26 +209,34 @@ static int			ft_put_shapes(unsigned int **shapes, unsigned
 		if (ft_put_shapes(shapes, map, i + 1, gridsize, 0) == 1)
 			return (1);
 	}
-	if (i == 0)
-	{
-		gridsize++;
-		printf("increased gridsize\n");
-		ft_set_grid(map, gridsize);
-		ft_shift_back(shapes[i]);
-		return (ft_put_shapes(shapes, map, 0, gridsize, 0));
-	}
-	else if (ft_can_shift_right(shapes[i], gridsize))
+	// this part will only run if the shape can't be put or if the next shape
+	// returns 0.
+	// _____________________________________________________________________
+	// check if the shape can be shifted right, and while checking if it
+	// fits, keep shifting.
+	if (ft_can_shift_right(shapes[i], gridsize))
 	{
 		while ((ft_can_shift_right(shapes[i], gridsize) == 1) &&
 				ft_try_shape(shapes[i], map, line) == 0)
 			ft_shift_array(shapes[i], 1, 4);
 		return (ft_put_shapes(shapes, map, i, gridsize, line));
 	}
+	// if the shape can be shifted down, do it.
 	else if ((line + ft_shape_height(shapes[i])) < gridsize)
 	{
 		ft_shift_back(shapes[i]);
 		line++;
 		return (ft_put_shapes(shapes, map, i, gridsize, line));
+	}
+	// if the shape can't be shifted anymore, and we're at the first shape,
+	// increase gridsize, otherwise shift back the shape and return 0.
+	else if (i == 0)
+	{
+		gridsize++;
+		printf("increased gridsize\n");
+		ft_set_grid(map, gridsize);
+		ft_shift_back(shapes[i]);
+		return (ft_put_shapes(shapes, map, 0, gridsize, 0));
 	}
 	else
 	{
