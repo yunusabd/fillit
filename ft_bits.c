@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/17 20:31:44 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/18 22:08:06 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int		main(int argc, char **argv)
 	unsigned int		mask;
 	unsigned int		masked;
 	unsigned int		**arr;
-	unsigned int		**sorted;
 	int					shapes;
 
 	printf("Binary: \n%u \n", 1<<31);
@@ -59,12 +58,11 @@ int		main(int argc, char **argv)
 	shapes = ft_check_input(input);
 	printf("Input file formating %s\n", (shapes == 0) ? "invalid" : "valid");
 	printf("__________________\n");
-	sorted = (unsigned int**)malloc(sizeof(*sorted) * shapes + 1);
 	arr = (unsigned int**)malloc(sizeof(*arr) * shapes + 1);
 	i = 0;
 	while (i < shapes)
 	{
-		arr[i] = (unsigned int*)malloc(sizeof(**arr));
+		arr[i] = (unsigned int*)malloc(sizeof(**arr) * 4);
 		i++;
 	}
 	ft_input_to_array(input, arr, shapes);
@@ -95,7 +93,7 @@ int		main(int argc, char **argv)
 		i++;
 	}
 	printf("before create\n");
-	ft_create_map(arr, shapes, sorted);
+	ft_create_map(arr, shapes);
 	
 	/*
 	j = 0;
