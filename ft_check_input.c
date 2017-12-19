@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/19 14:59:50 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:39:57 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int		ft_check_newline(char *s)
 			else if (s[i] == '\n' && newlines == 4)
 			{
 				i++;
-				printf("Number of newlines: %d\n", newlines);
+				// printf("Number of newlines: %d\n", newlines);
 				newlines = 0;
 			}
 			else if (s[i] != '.' && s[i] != '#')

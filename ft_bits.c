@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/19 18:40:15 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/19 19:40:37 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		main(int argc, char **argv)
 	}
 	ft_input_to_array(input, arr, shapes);
 	i = 0;
+	/*
 	while (i < shapes)
 	{
 		j = 0;
@@ -90,9 +91,10 @@ int		main(int argc, char **argv)
 		printf("\n");
 		i++;
 	}
-
+	*/
 	ft_compare_shapes(arr, shapes);
 	i = 0;
+	/*
 	while (i < shapes)
 	{
 		j = 0;
@@ -104,7 +106,7 @@ int		main(int argc, char **argv)
 		printf("\n");
 		i++;
 	}
-	printf("before create\n");
+	*/
 	ft_create_map(arr, gridsize);
 	
 	/*
