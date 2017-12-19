@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/13 20:26:50 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/19 14:59:50 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ int				ft_check_input(char *s)
 {
 	int		len;
 
-	len = ft_strlen(s);
+	printf("start check_input\n");
+	len = strlen(s);
+	printf("strlen ran\n");
 	if (!(((len + 1) % 21) == 0))
 		return (0);
 	if (!((ft_count_char(s, '#') % 4) == 0))
@@ -120,5 +122,6 @@ int				ft_check_input(char *s)
 		printf("Check_newlines returned 0\n");
 		return (0);
 	}
+	printf("Check_newlines ran\n");
 	return ((len + 1) / 21);
 }

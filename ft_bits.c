@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/18 22:08:06 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/19 18:40:15 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,36 @@ unsigned int		ft_read_shape(char *s)
 	return (result);
 }
 
+static int			ft_min_gridsize(int shapes)
+{
+	int				i;
+
+	i = 0;
+	while (ft_sqrt(shapes + i) == 0)
+		i++;
+	return (ft_sqrt(shapes + i));
+}
+
 int		main(int argc, char **argv)
 {
 	int		i;
 	int					j;
 	unsigned int		size;
-	unsigned int		num;
 	unsigned int		maxPow = 1<<(31);
 	char				*input;
 	unsigned int		mask;
 	unsigned int		masked;
 	unsigned int		**arr;
 	int					shapes;
+	int					gridsize;
 
 	printf("Binary: \n%u \n", 1<<31);
-	num = 7<<28;
 	mask = 0<<31;
 	input = ft_read_file(argv[1]);
+	printf("input read into variable\n");
 	shapes = ft_check_input(input);
+	gridsize = ft_min_gridsize(shapes * 4);
+	printf("shapes: %d, gridsize: %d", shapes, gridsize);
 	printf("Input file formating %s\n", (shapes == 0) ? "invalid" : "valid");
 	printf("__________________\n");
 	arr = (unsigned int**)malloc(sizeof(*arr) * shapes + 1);
@@ -72,7 +84,7 @@ int		main(int argc, char **argv)
 		j = 0;
 		while (j < 4)
 		{
-			printf("%d ", arr[i][j]);
+			printf("%u ", arr[i][j]);
 			j++;
 		}
 		printf("\n");
@@ -86,14 +98,14 @@ int		main(int argc, char **argv)
 		j = 0;
 		while (j < 4)
 		{
-			printf("%d ", arr[i][j]);
+			printf("%u ", arr[i][j]);
 			j++;
 		}
 		printf("\n");
 		i++;
 	}
 	printf("before create\n");
-	ft_create_map(arr, shapes);
+	ft_create_map(arr, gridsize);
 	
 	/*
 	j = 0;

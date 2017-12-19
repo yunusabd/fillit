@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/19 12:59:19 by yabdulha         ###   ########.fr       */
+/*   Updated: 2017/12/19 14:51:39 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static int			ft_compare_shape(unsigned int *shape, unsigned int n)
 		shifted = 0;
 		while (i < 10)
 		{
-			// printf("precoded: %d %d %d %d\n", precoded[p][0], precoded[p][1], precoded[p][2], precoded[p][3]);
-			// printf("tmp shifted: %d %d %d %d, shifted: %d\n", tmp[0], tmp[1], tmp[2], tmp[3], shifted);
 			if ((ft_memcmp(tmp, shape, sizeof(int) * 4)) == 0)
 			{
 				ft_memcpy(shape, precoded[p], sizeof(*shape) * 4);
@@ -125,7 +123,7 @@ void				ft_compare_shapes(unsigned int **shapes, int n)
 	while (i < n)
 	{
 		ft_compare_shape(shapes[i], n);
-		printf("put into shapes array: %u %u %u %u\n", shapes[i][0], shapes[i][1], shapes[i][2], shapes[i][3]);
+		// printf("put into shapes array: %u %u %u %u\n", shapes[i][0], shapes[i][1], shapes[i][2], shapes[i][3]);
 		ft_shift_array(shapes[i], -28, 4);
 		i++;
 	}
