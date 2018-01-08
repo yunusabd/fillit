@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/19 19:38:16 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/01/06 20:11:05 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ static int			ft_compare_shape(unsigned int *shape, unsigned int n)
 		{
 			if ((ft_memcmp(tmp, shape, sizeof(int) * 4)) == 0)
 			{
+				ft_shift_back(precoded[p]);
 				ft_memcpy(shape, precoded[p], sizeof(*shape) * 4);
-				//printf("shape found!\n");
+				printf("shape found!\n");
 				return (1);
 			}
 			// check if rightmost bit is 1 with comparison  &1. If yes, we can't

@@ -1,0 +1,33 @@
+Binary: 
+2147483648 
+input read into variable
+start check_input
+strlen ran
+End of file
+Check_newlines ran
+shapes: 11, gridsize: 7Input file formating valid
+__________________
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+shape found!
+start create map
+sizeof(*map) * 8: 32
+Set grid finished
+increased gridsize
+All shapes put, gridsize 8
+put shapes finished
+0 1 1 1 1 0 1 
+1 1 1 1 1 1 1 
+0 1 1 0 1 1 1 
+0 1 1 0 1 1 1 
+1 1 1 1 0 1 1 
+0 1 1 1 1 1 1 
+0 1 1 0 1 1 1 
