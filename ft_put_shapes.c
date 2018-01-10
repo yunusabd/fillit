@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:09:06 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/01/08 20:36:10 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/01/10 12:42:20 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,20 @@ static int			ft_can_shift_right(unsigned int *shape, int *gridsize)
 }
 
 /*
+** Checks if a row has at least one free spot
+*/
+
+static int			ft_line_space(unsigned int line, int gridsize)
+{
+	unsigned int	mask;
+
+	mask = ~((~0) >> gridsize);
+	if (mask == line)
+		return (0);
+	return (1);
+}
+
+/*
 ** Checks if a shape can be positioned in the map, without actually placing it.
 */
 
@@ -241,7 +255,8 @@ static int			ft_put_shapes(unsigned int **shapes, unsigned
 		else
 			ft_set_shape(shapes[i], map, shapes[i][4], 0);
 	}
-	if (ft_can_shift_right(shapes[i], gridsize))
+	if (ft_line_space(map[shapes[i][4]], *gridsize)
+			&& ft_can_shift_right(shapes[i], gridsize))
 	{
 		ft_shift_array(shapes[i], 1, 4);
 		while ((ft_can_shift_right(shapes[i], gridsize) == 1) &&
@@ -249,7 +264,8 @@ static int			ft_put_shapes(unsigned int **shapes, unsigned
 			ft_shift_array(shapes[i], 1, 4);
 		return (ft_put_shapes(shapes, map, i, gridsize));
 	}
-	else if ((shapes[i][4] + ft_shape_height(shapes[i])) < *gridsize)
+	else if (ft_line_space(map[shapes[i][4]], *gridsize)
+			&& (shapes[i][4] + ft_shape_height(shapes[i])) < *gridsize)
 	{
 		ft_shift_back(shapes[i]);
 		shapes[i][4] += 1;
@@ -260,7 +276,7 @@ static int			ft_put_shapes(unsigned int **shapes, unsigned
 		printf("increased gridsize\n");
 		*gridsize += 1;
 		shapes[i][4] = 0;
-		ft_set_grid(map, gridsize);
+		//ft_set_grid(map, gridsize);
 		ft_shift_back(shapes[i]);
 		return (ft_put_shapes(shapes, map, 0, gridsize));
 	}
@@ -282,10 +298,10 @@ void				ft_create_map(unsigned int **arr, int *gridsize, int shapes)
 	i= 0;
 	while (i < (sizeof(*map) * 8 + 1))
 	{
-		map[i] = ~0;
+		map[i] = 0;
 		i++;
 	}
-	ft_set_grid(map, gridsize);
+	//ft_set_grid(map, gridsize);
 	ft_put_shapes(arr, map, 0, gridsize);
 	ft_print_map(map, gridsize);
 	result = ft_print_shapes(arr, gridsize, shapes);
