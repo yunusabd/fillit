@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/01/08 20:42:49 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/13 12:37:16 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		main(int argc, char **argv)
 	mask = 0<<31;
 	input = ft_read_file(argv[1]);
 	shapes = ft_check_input(input);
+	printf("checked input\n");
 	gridsize = (int*)malloc(sizeof(int));
 	*gridsize = ft_min_gridsize(shapes * 4);
 	printf("shapes: %d, gridsize: %d\n", shapes, *gridsize);

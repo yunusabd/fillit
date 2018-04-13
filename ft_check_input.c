@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/19 19:39:57 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/13 12:45:09 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ int				ft_check_input(char *s)
 		return (0);
 	}
 	printf("Check_newlines ran\n");
+	printf("%i\n", ((len + 1) / 21));
 	return ((len + 1) / 21);
 }
