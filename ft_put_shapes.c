@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:09:06 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/13 18:26:18 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/14 13:34:38 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,7 @@ static int		ft_put_shapes(uint **shapes, uint *map, int i, int *gridsize, int n)
 		printf("------------\n");
 		free(map);
 		map = ft_set_map(gridsize);
+		ft_shift_back(shapes[i]);
 		return (ft_put_shapes(shapes, map, 0, gridsize, n));
 	}
 	LINE = 0;

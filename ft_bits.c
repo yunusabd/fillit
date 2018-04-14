@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/13 12:37:16 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/14 13:58:20 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		main(int argc, char **argv)
 	}
 	ft_input_to_array(input, arr, shapes);
 	ft_compare_shapes(arr, shapes);
-	ft_create_map(arr, gridsize, shapes);
+	fillit(arr, gridsize, shapes);
 	free(gridsize);
 	return (0);
 }
