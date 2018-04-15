@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 18:50:28 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 22:36:34 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,34 @@ static int		count_char(char *s, char c)
 	return (count);
 }
 
+static int		check_layout(int i, int newlines, int len, char *s)
+{
+	int	j;
+
+	while (i < len && (j = i) == i)
+	{
+		while ((s[i] == '.' || s[i] == '#') && i < len)
+			i++;
+		if (j != i - 4)
+			return (0);
+		if (s[i] == '\n' && i < len)
+		{
+			i++;
+			if (++newlines != 4 && i == len)
+				return (0);
+			if (i == len)
+				return (1);
+			else if (s[i] == '\n' && newlines == 4)
+				i++;
+			else if (s[i] != '.' && s[i] != '#')
+				return (0);
+			if (s[i - 1] == '\n' && newlines == 4)
+				newlines = 0;
+		}
+	}
+	return (0);
+}
+
 /*
 ** Check if there is a newline at the end of each line.
 ** After each line, check if there is another newline (more shapes).
@@ -43,38 +71,13 @@ static int		count_char(char *s, char c)
 static int		check_newline(char *s)
 {
 	int		len;
-	int		i;
-	int		j;
 	int		newlines;
+	int		i;
 
 	i = 0;
 	newlines = 0;
 	len = ft_strlen(s);
-	while (i < len)
-	{
-		j = i;
-		while ((s[i] == '.' || s[i] == '#') && i < len)
-			i++;
-		if (j != i - 4)
-			return (0);
-		if (s[i] == '\n' && i < len)
-		{
-			newlines++;
-			i++;
-			if (newlines != 4 && i == len)
-				return (0);
-			if (i == len)
-				return (1);
-			else if (s[i] == '\n' && newlines == 4)
-			{
-				i++;
-				newlines = 0;
-			}
-			else if (s[i] != '.' && s[i] != '#')
-				return (0);
-		}
-	}
-	return (0);
+	return (check_layout(i, newlines, len, s));
 }
 
 /*

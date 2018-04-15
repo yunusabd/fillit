@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:40:39 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 19:28:53 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 22:44:02 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,11 @@ char			**print_shapes(uint **s, int *gridsize, int shapes)
 
 	map = init_map(gridsize);
 	i = 0;
-	while (i < shapes)
+	while (i < shapes && (j = 0) == 0)
 	{
-		j = 0;
-		while (j < shape_height(s[i]))
+		while (j < shape_height(s[i]) && (k = 0) == 0)
 		{
 			masked = s[i][j] >> X;
-			k = 0;
 			while (k < *gridsize)
 			{
 				if (masked & (1 << (sizeof(uint) * 8 - 1)))

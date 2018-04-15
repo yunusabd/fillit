@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 19:44:30 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 23:41:54 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int			compare_shape(unsigned int *shape)
 	int				shifted;
 	unsigned int	*shape_copy;
 	unsigned int	p;
-	unsigned int	precoded[19][4] = 
+	unsigned int	*tmp;
+	static unsigned int	precoded[19][4] = 
 	{
 		{8, 8, 8, 8},
 		{15, 0, 0, 0},
@@ -66,7 +67,6 @@ static int			compare_shape(unsigned int *shape)
 		{12, 6, 0, 0},
 		{4, 12, 8, 0}
 	};
-	unsigned int	*tmp;
 
 	tmp = (unsigned int*)malloc(sizeof(*tmp) * 4);
 	shape_copy = shape;
@@ -84,11 +84,6 @@ static int			compare_shape(unsigned int *shape)
 				ft_memcpy(shape, precoded[p], sizeof(*shape) * 4);
 				return (1);
 			}
-			// check if rightmost bit is 1 with comparison  &1. If yes, we can't
-			// shift to the right.
-			// If the last line is empty, shift elements back to original position, 
-			//  move array elements down one line and add
-			// empty line at the top at tmp[0].
 			if (tmp[0] & 1 || tmp[1] & 1 || tmp[2] & 1 || tmp[3] & 1)
 			{
 				if (tmp[3] == 0)
@@ -116,15 +111,17 @@ static int			compare_shape(unsigned int *shape)
 	return (0);
 }
 
-void				compare_shapes(unsigned int **shapes, int n)
+int					compare_shapes(unsigned int **shapes, int n)
 {
 	int				i;
 
 	i = 0;
 	while (i < n)
 	{
-		compare_shape(shapes[i]);
+		if (!compare_shape(shapes[i]))
+			return (0);
 		i++;
 	}
 	shapes[i] = NULL;
+	return (1);
 }

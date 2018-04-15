@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 18:30:42 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 18:32:50 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 23:25:33 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,32 @@ int				shift_back(uint *shape)
 	return (1);
 }
 
-static int		put_shapes(uint **s, uint *m, int i, int *gridsize)
-{
-	int		l;
-	int		j;
+/*
+** If you read this, you are stupid. Yunus said that. Volhan agreed.
+** There was supposed to be a first if, but we did it without it
+*/
 
-	l = 0;
-	j = 0;
+static int		second_if(uint **s, uint *m, int i, int *gridsize)
+{
+	if (i == 0)
+	{
+		LINE = 0;
+		X = 0;
+		*gridsize += 1;
+		free(m);
+		m = create_map(gridsize);
+		return (put_shapes(s, m, i, gridsize));
+	}
+	else
+	{
+		LINE = 0;
+		shift_back(s[i]);
+		return (0);
+	}
+}
+
+int				put_shapes(uint **s, uint *m, int i, int *gridsize)
+{
 	if (!s[i])
 		return (1);
 	while (LINE + (shape_height(s[i])) <= (uint)*gridsize)
@@ -82,28 +101,12 @@ static int		put_shapes(uint **s, uint *m, int i, int *gridsize)
 					toggle_shape(s[i], &m);
 			}
 			X++;
-			j++;
 		}
 		shift_back(s[i]);
 		LINE += 1;
-		j = 0;
 		X = 0;
 	}
-	if (i == 0)
-	{
-		LINE = 0;
-		X = 0;
-		*gridsize += 1;
-		free(m);
-		m = create_map(gridsize);
-		return (put_shapes(s, m, i, gridsize));
-	}
-	else
-	{
-		LINE = 0;
-		shift_back(s[i]);
-		return (0);
-	}
+	return (second_if(s, m, i, gridsize));
 }
 
 void			fillit(uint **arr, int *gridsize, int shapes)

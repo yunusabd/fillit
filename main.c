@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 19:24:38 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 23:26:36 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,53 @@ static int			min_gridsize(int shapes)
 	return (ft_sqrt(shapes + i));
 }
 
-int		main(int argc, char **argv)
+static unsigned int	**init_array(int sha)
 {
 	int				i;
-	char			*input;
-	unsigned int	mask;
 	unsigned int	**arr;
-	int				shapes;
-	int				*gridsize;
 
-	argc += 0;
-	// error checking for number of
-	mask = 0 << 31;
-	input = read_file(argv[1]);
-	// error checking for invalid shape
-	shapes = check_input(input);
-	// maybe we don't need it
-	gridsize = (int*)malloc(sizeof(int));
-	*gridsize = min_gridsize(shapes * 4);
-	arr = (unsigned int**)malloc(sizeof(*arr) * shapes + 1);
+	if (sha > 26 || !(arr = (unsigned int**)malloc(sizeof(*arr) * sha + 1)))
+		return (0);
 	i = 0;
-	while (i < shapes)
+	while (i < sha)
 	{
-		arr[i] = (unsigned int*)malloc(sizeof(**arr) * 5);
+		if (!(arr[i] = (unsigned int*)malloc(sizeof(**arr) * 5)))
+			return (0);
 		i++;
 	}
-	input_to_array(input, arr, shapes);
-	compare_shapes(arr, shapes);
-	fillit(arr, gridsize, shapes);
-	free(gridsize);
-	// more freeing needs to be done
-	// every time there is a malloc things need to get freed
+	return (arr);
+}
+
+int					main(int argc, char **argv)
+{
+	char			*input;
+	unsigned int	**arr;
+	int				sha;
+	int				*grd;
+	// int				i;
+
+	if (argc != 2)
+	{
+		ft_putstr("usage: ./fillit input_file\n");
+		return (0);
+	}
+	if (!(input = read_file(argv[1])))
+		return (0);
+	if (!(sha = check_input(input)))
+		return (0);
+	grd = (int*)malloc(sizeof(int));
+	*grd = min_gridsize(sha * 4);
+	if (!(arr = init_array(sha)))
+		return (0);
+	input_to_array(input, arr, sha);
+	if (!compare_shapes(arr, sha))
+		return (0);
+	fillit(arr, grd, sha);
+	// free(grd);
+	// i = 0;
+	// while (*arr[i] != '\0')
+	// {
+	// 	free(arr[i++]);
+	// }
 	return (0);
 }
