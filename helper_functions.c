@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:51:22 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 18:29:30 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 19:21:31 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int				shape_height(uint *s)
 
 void			toggle_shape(uint *shape, uint **map)
 {
-	uint    *m;
-	uint    s_cpy;
-	int     x;
-	int     l;
+	uint	*m;
+	uint	s_cpy;
+	int		x;
+	int		l;
 
 	m = *map;
 	x = shape[5];

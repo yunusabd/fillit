@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 18:46:16 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 19:24:38 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 unsigned int		read_shape(char *s)
 {
-	int		i;
-	int		j;
-	unsigned int		result;
+	int				i;
+	int				j;
+	unsigned int	result;
 
 	i = 0;
 	j = 0;
@@ -29,7 +29,7 @@ unsigned int		read_shape(char *s)
 			result = result << 1;
 		}
 		else if (s[i] == '.')
-			result = result<<1;
+			result = result << 1;
 		i++;
 		j++;
 	}
@@ -49,20 +49,19 @@ static int			min_gridsize(int shapes)
 
 int		main(int argc, char **argv)
 {
-	int		i;
-	char				*input;
-	unsigned int		mask;
-	unsigned int		**arr;
-	int					shapes;
-	int					*gridsize;
+	int				i;
+	char			*input;
+	unsigned int	mask;
+	unsigned int	**arr;
+	int				shapes;
+	int				*gridsize;
 
 	argc += 0;
-	// error checking for number of 
-	mask = 0<<31;
+	// error checking for number of
+	mask = 0 << 31;
 	input = read_file(argv[1]);
 	// error checking for invalid shape
 	shapes = check_input(input);
-
 	// maybe we don't need it
 	gridsize = (int*)malloc(sizeof(int));
 	*gridsize = min_gridsize(shapes * 4);

@@ -6,14 +6,16 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 18:55:52 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 19:44:30 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-/* TODO: Use the return value of ft_compare_shape to exit if shape is not found */
-/* TODO: Protect mallocs */
+/*
+** TODO: Use the return value of ft_compare_shape to exit if shape is not found
+** TODO: Protect mallocs 
+*/
 
 /*
 ** The array 'precoded' holds the 19 possible shapes, which we compare to the
@@ -21,7 +23,7 @@
 ** one bit to the right.
 */
 
-void			shift_array(unsigned int *arr, int spaces, int size)
+void				shift_array(unsigned int *arr, int spaces, int size)
 {
 	int				i;
 
@@ -29,9 +31,9 @@ void			shift_array(unsigned int *arr, int spaces, int size)
 	while (i < size)
 	{
 		if (spaces < 0)
-			arr[i] = arr[i]<<(-spaces);
+			arr[i] = arr[i] << (-spaces);
 		else
-			arr[i] = arr[i]>>spaces;
+			arr[i] = arr[i] >> spaces;
 		i++;
 	}
 }
@@ -99,7 +101,7 @@ static int			compare_shape(unsigned int *shape)
 					shifted = 0;
 				}
 				else
-					break;
+					break ;
 				i++;
 			}
 			else
