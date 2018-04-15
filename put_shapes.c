@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_shapes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 18:30:42 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 17:08:54 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:32:50 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static uint		*create_map(int *gridsize)
 ** Shifts a shape back to leftmost position.
 */
 
-int				ft_shift_back(uint *shape)
+int				shift_back(uint *shape)
 {
 	int		size;
 	uint	m;
@@ -67,7 +67,7 @@ static int		put_shapes(uint **s, uint *m, int i, int *gridsize)
 	j = 0;
 	if (!s[i])
 		return (1);
-	while (LINE + (ft_shape_height(s[i])) <= (uint)*gridsize)
+	while (LINE + (shape_height(s[i])) <= (uint)*gridsize)
 	{
 		while (X < (uint)*gridsize)
 		{
@@ -75,16 +75,16 @@ static int		put_shapes(uint **s, uint *m, int i, int *gridsize)
 					&& !(m[LINE + 2] & (s[i][2] >> X))
 					&& !(m[LINE + 3] & (s[i][3] >> X)))
 			{
-				ft_toggle_shape(s[i], &m);
+				toggle_shape(s[i], &m);
 				if (put_shapes(s, m, i + 1, gridsize) == 1)
 					return (1);
 				else
-					ft_toggle_shape(s[i], &m);
+					toggle_shape(s[i], &m);
 			}
 			X++;
 			j++;
 		}
-		ft_shift_back(s[i]);
+		shift_back(s[i]);
 		LINE += 1;
 		j = 0;
 		X = 0;
@@ -101,7 +101,7 @@ static int		put_shapes(uint **s, uint *m, int i, int *gridsize)
 	else
 	{
 		LINE = 0;
-		ft_shift_back(s[i]);
+		shift_back(s[i]);
 		return (0);
 	}
 }

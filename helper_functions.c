@@ -6,13 +6,13 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:51:22 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 18:16:23 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 18:29:30 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int				ft_shape_height(uint *s)
+int				shape_height(uint *s)
 {
 	if (s[1] == 0)
 		return (1);
@@ -24,7 +24,7 @@ int				ft_shape_height(uint *s)
 		return (4);
 }
 
-void			ft_toggle_shape(uint *shape, uint **map)
+void			toggle_shape(uint *shape, uint **map)
 {
 	uint    *m;
 	uint    s_cpy;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:40:39 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 15:47:21 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 18:30:30 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			**print_shapes(uint **s, int *gridsize, int shapes)
 	while (i < shapes)
 	{
 		j = 0;
-		while (j < ft_shape_height(s[i]))
+		while (j < shape_height(s[i]))
 		{
 			masked = s[i][j] >> X;
 			k = 0;

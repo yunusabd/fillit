@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 17:29:41 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/15 18:55:52 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** one bit to the right.
 */
 
-void			ft_shift_array(unsigned int *arr, int spaces, int size)
+void			shift_array(unsigned int *arr, int spaces, int size)
 {
 	int				i;
 
@@ -36,7 +36,7 @@ void			ft_shift_array(unsigned int *arr, int spaces, int size)
 	}
 }
 
-static int			ft_compare_shape(unsigned int *shape)
+static int			compare_shape(unsigned int *shape)
 {
 	int				i;
 	int				shifted;
@@ -78,9 +78,8 @@ static int			ft_compare_shape(unsigned int *shape)
 		{
 			if ((ft_memcmp(tmp, shape, sizeof(int) * 4)) == 0)
 			{
-				ft_shift_back(precoded[p]);
+				shift_back(precoded[p]);
 				ft_memcpy(shape, precoded[p], sizeof(*shape) * 4);
-				printf("shape found!\n");
 				return (1);
 			}
 			// check if rightmost bit is 1 with comparison  &1. If yes, we can't
@@ -92,7 +91,7 @@ static int			ft_compare_shape(unsigned int *shape)
 			{
 				if (tmp[3] == 0)
 				{
-					ft_shift_array(tmp, (-shifted), 4);
+					shift_array(tmp, (-shifted), 4);
 					tmp[3] = tmp[2];
 					tmp[2] = tmp[1];
 					tmp[1] = tmp[0];
@@ -105,25 +104,24 @@ static int			ft_compare_shape(unsigned int *shape)
 			}
 			else
 			{
-				ft_shift_array(tmp, 1, 4);
+				shift_array(tmp, 1, 4);
 				shifted++;
 				i++;
 			}
 		}
 		p++;
 	}
-	printf("shape not found\n");
 	return (0);
 }
 
-void				ft_compare_shapes(unsigned int **shapes, int n)
+void				compare_shapes(unsigned int **shapes, int n)
 {
 	int				i;
 
 	i = 0;
 	while (i < n)
 	{
-		ft_compare_shape(shapes[i]);
+		compare_shape(shapes[i]);
 		i++;
 	}
 	shapes[i] = NULL;

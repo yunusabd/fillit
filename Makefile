@@ -6,7 +6,7 @@
 #    By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/25 19:04:39 by volhansalai       #+#    #+#              #
-#    Updated: 2018/04/15 18:21:04 by vsalai           ###   ########.fr        #
+#    Updated: 2018/04/15 18:45:00 by vsalai           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,7 +142,7 @@ FILLIT_SRCS = main.c \
 			check_input.c \
 			compare_shape.c \
 			read_file.c \
-			shape_to_array.c \
+			input_to_array.c \
 			print_map.c \
 			put_shapes.c \
 			helper_functions.c
