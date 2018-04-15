@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:46:45 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 01:30:38 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:07:11 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 void				ft_input_to_array(char *s, unsigned int **dst, int shapes)
 {
-	unsigned int	line;
 	int				i;
 	int				j;
 	char			*tmp;

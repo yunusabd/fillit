@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 12:39:14 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/01/06 20:11:05 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:10:11 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			ft_shift_array(unsigned int *arr, int spaces, int size)
 	}
 }
 
-static int			ft_compare_shape(unsigned int *shape, unsigned int n)
+static int			ft_compare_shape(unsigned int *shape)
 {
 	int				i;
 	int				shifted;
@@ -123,7 +123,7 @@ void				ft_compare_shapes(unsigned int **shapes, int n)
 	i = 0;
 	while (i < n)
 	{
-		ft_compare_shape(shapes[i], n);
+		ft_compare_shape(shapes[i]);
 		i++;
 	}
 	shapes[i] = NULL;
