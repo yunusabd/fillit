@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 18:30:42 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 16:06:04 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:08:54 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static uint		*create_map(int *gridsize)
 	uint	*map;
 	uint	zero;
 
+	i = 0;
 	if (!(map = (uint*)malloc(sizeof(*map) * 32)))
 		return (NULL);
 	zero = ~0;
@@ -61,16 +62,14 @@ static int		put_shapes(uint **s, uint *m, int i, int *gridsize)
 {
 	int		l;
 	int		j;
-	char	**result;
-	int		k;
 
 	l = 0;
 	j = 0;
 	if (!s[i])
 		return (1);
-	while (LINE + (ft_shape_height(s[i])) <= *gridsize)
+	while (LINE + (ft_shape_height(s[i])) <= (uint)*gridsize)
 	{
-		while (X < *gridsize)
+		while (X < (uint)*gridsize)
 		{
 			if (!(m[LINE] & (s[i][0] >> X)) && !(m[LINE + 1] & (s[i][1] >> X))
 					&& !(m[LINE + 2] & (s[i][2] >> X))

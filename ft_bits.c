@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 16:03:28 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:06:14 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 unsigned int		ft_read_shape(char *s)
 {
-	int		len;
 	int		i;
 	int		j;
 	unsigned int		result;
@@ -51,16 +50,13 @@ static int			ft_min_gridsize(int shapes)
 int		main(int argc, char **argv)
 {
 	int		i;
-	int					j;
-	unsigned int		size;
-	unsigned int		maxPow = 1 << 31;
 	char				*input;
 	unsigned int		mask;
-	unsigned int		masked;
 	unsigned int		**arr;
 	int					shapes;
 	int					*gridsize;
 
+	argc += 0;
 	mask = 0<<31;
 	input = ft_read_file(argv[1]);
 	shapes = ft_check_input(input);
