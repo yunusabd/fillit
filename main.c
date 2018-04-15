@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bits.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 17:06:14 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 17:24:41 by vsalai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ int		main(int argc, char **argv)
 	int					*gridsize;
 
 	argc += 0;
+	// error checking for number of 
 	mask = 0<<31;
 	input = ft_read_file(argv[1]);
+	// error checking for invalid shape
 	shapes = ft_check_input(input);
 	printf("checked input\n");
+
+	// maybe we don't need it
 	gridsize = (int*)malloc(sizeof(int));
 	*gridsize = ft_min_gridsize(shapes * 4);
-	printf("shapes: %d, gridsize: %d\n", shapes, *gridsize);
-	printf("Input file formating %s\n", (shapes == 0) ? "invalid" : "valid");
-	printf("__________________\n");
 	arr = (unsigned int**)malloc(sizeof(*arr) * shapes + 1);
 	i = 0;
 	while (i < shapes)
@@ -77,5 +78,7 @@ int		main(int argc, char **argv)
 	ft_compare_shapes(arr, shapes);
 	fillit(arr, gridsize, shapes);
 	free(gridsize);
+	// more freeing needs to be done
+	// every time there is a malloc things need to get freed
 	return (0);
 }
