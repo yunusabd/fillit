@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:21:55 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 01:31:02 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 15:54:14 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ void			ft_compare_shapes(unsigned int **shapes, int n);
 void			ft_shift_array(unsigned int *arr, int spaces, int size);
 void			fillit(unsigned int **arr, int *gridsize, int shapes);
 int				ft_shift_back(unsigned int *shape);
+char			**print_shapes(uint **s, int *gridsize, int shapes);
+int				ft_shape_height(uint *s);
+void            ft_toggle_shape(uint *shape, uint **map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/14 13:58:20 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 16:03:28 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ unsigned int		ft_read_shape(char *s)
 		if (s[i] == '#')
 		{
 			result = result ^ 1;
-			result = result<<1;
+			result = result << 1;
 		}
 		else if (s[i] == '.')
 			result = result<<1;
 		i++;
 		j++;
 	}
-	result = result>>1;
+	result = result >> 1;
 	return (result);
 }
 
@@ -53,7 +53,7 @@ int		main(int argc, char **argv)
 	int		i;
 	int					j;
 	unsigned int		size;
-	unsigned int		maxPow = 1<<(31);
+	unsigned int		maxPow = 1 << 31;
 	char				*input;
 	unsigned int		mask;
 	unsigned int		masked;
@@ -83,4 +83,3 @@ int		main(int argc, char **argv)
 	free(gridsize);
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/13 12:45:09 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 16:05:30 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,6 @@ static int		ft_check_newline(char *s)
 	printf("Last return\n");
 	return (0);
 }
-
-/*
-** TODO Check if there are 4 * # and 12 * . in each shape
-*/
-
-/*
-** Alternative TODO: Loop through buffer and send squares to shape_check, to
-** check each square individually. Check for newlines and chars there, may be cleaner
-*/
 
 /*
 ** Check if char count is a multiple of 20 (for each sqaure) + 1 newline after
