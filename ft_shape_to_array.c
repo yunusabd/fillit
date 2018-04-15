@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:46:45 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/01/06 20:13:22 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 01:30:38 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 ** Malloc no of shapes into int array.
 ** Each element: ft_read_shape
 */
-
 
 void				ft_input_to_array(char *s, unsigned int **dst, int shapes)
 {
@@ -37,7 +36,8 @@ void				ft_input_to_array(char *s, unsigned int **dst, int shapes)
 			dst[i][j] = ft_read_shape(tmp);
 			j++;
 		}
-		dst[i][j] = 0;
+		dst[i][4] = 0;
+		dst[i][5] = 0;
 		free(tmp);
 		i++;
 	}

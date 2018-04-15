@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:21:55 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/14 13:58:35 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 01:31:02 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 
 #define LINE s[i][4]
+#define X s[i][5]
 
 typedef unsigned int uint;
 

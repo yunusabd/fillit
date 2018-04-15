@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 18:30:42 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/14 21:47:21 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/15 15:21:52 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,21 @@ static int	ft_shape_height(uint *s)
 		return (4);
 }
 
-static void		ft_toggle_shape(uint *shape, uint **map, int l)
+static void		ft_toggle_shape(uint *shape, uint **map)
 {
 	uint	*m;
+	uint	s_cpy;
+	int		x;
+	int		l;
 
 	m = *map;
-	m[l] ^= shape[0];
-	m[l + 1] ^= shape[1];
-	m[l + 2] ^= shape[2];
-	m[l + 3] ^= shape[3];
+	x = shape[5];
+	l = shape[4];
+	s_cpy = *shape;
+	m[l] ^= (shape[0] >> x);
+	m[l + 1] ^= (shape[1] >> x);
+	m[l + 2] ^= (shape[2] >> x);
+	m[l + 3] ^= (shape[3] >> x);
 }
 
 /*
@@ -108,7 +114,7 @@ static char		**print_shapes(uint **s, int *gridsize, int shapes)
 		j = 0;
 		while (j < ft_shape_height(s[i]))
 		{
-			masked = s[i][j];
+			masked = s[i][j] >> s[i][5];
 			k = 0;
 			while (k < *gridsize)
 			{
@@ -178,28 +184,30 @@ static int	put_shapes(uint **s, uint *m, int i, int *gridsize)
 		return (1);
 	while (LINE + (ft_shape_height(s[i])) <= *gridsize)
 	{
-		while (j < *gridsize)
+		while (X < *gridsize)
 		{
-			if (!(m[LINE] & s[i][0]) && !(m[LINE + 1] & s[i][1]) &&
-						!(m[LINE + 2] & s[i][2]) && !(m[LINE + 3] & s[i][3]))
+			if (!(m[LINE] & (s[i][0] >> X)) && !(m[LINE + 1] & (s[i][1] >> X)) &&
+						!(m[LINE + 2] & (s[i][2] >> X)) && !(m[LINE + 3] & (s[i][3] >> X)))
 			{
-				ft_toggle_shape(s[i], &m, LINE);
+				ft_toggle_shape(s[i], &m);
 				if (put_shapes(s, m, i + 1, gridsize) == 1)
 					return (1);
 				else
-					ft_toggle_shape(s[i], &m, LINE);
+					ft_toggle_shape(s[i], &m);
 			}
-			ft_shift_array(s[i], 1, 4);
+			X++;
 			j++;
 		}
 		ft_shift_back(s[i]);
 		LINE += 1;
 		j = 0;
+		X = 0;
 	}
 	if (i == 0)
 	{
 		LINE = 0;
-		ft_shift_back(s[i]);
+		X = 0;
+
 		*gridsize += 1;
 		free(m);
 		m = create_map(gridsize);
