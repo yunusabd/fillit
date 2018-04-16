@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:51:22 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/16 20:13:17 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:03:15 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			print_error(void)
 {
 	ft_putstr("error\n");
-	exit(0);
+	exit(1);
 }
 
 /*

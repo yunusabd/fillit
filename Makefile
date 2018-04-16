@@ -6,7 +6,7 @@
 #    By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/25 19:04:39 by volhansalai       #+#    #+#              #
-#    Updated: 2018/04/16 20:18:02 by yabdulha         ###   ########.fr        #
+#    Updated: 2018/04/16 22:13:00 by yabdulha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,8 +141,7 @@ LIBFT_OBJS = ft_absolute.o \
 FILLIT_SRCS = main.c \
 			check_input.c \
 			compare_shape.c \
-			read_file.c \
-			input_to_array.c \
+			parse_input.c \
 			print_map.c \
 			put_shapes.c \
 			helper_functions.c
@@ -153,13 +152,13 @@ $(NAME):
 	gcc -c -Werror -Wextra -Wall $(LIBFT_SRCS)
 	ar rc libft.a $(LIBFT_OBJS)
 	ranlib libft.a
-	gcc -o $(NAME) -I./libft/srcs -Werror -Wextra -Wall $(FILLIT_SRCS) libft.a
+	gcc -o $(NAME) -Werror -Wextra -Wall $(FILLIT_SRCS) libft.a
 
 clean:
 	rm -rf $(LIBFT_OBJS)
 
 fclean: clean
-	/bin/rm -rf libft/libft.a
+	/bin/rm -rf libft.a
 	/bin/rm -rf $(NAME)
 	
 re: fclean all

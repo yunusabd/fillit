@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/16 19:28:07 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:00:02 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static unsigned int	**init_array(int sha)
 			return (0);
 		i++;
 	}
+	arr[i] = NULL;
 	return (arr);
 }
 
@@ -48,31 +49,22 @@ int					main(int argc, char **argv)
 	char			*input;
 	unsigned int	**arr;
 	int				sha;
-	int				*grd;
-	// int				i;
 
 	if (argc != 2)
 	{
 		ft_putstr("usage: ./fillit input_file\n");
 		return (0);
 	}
-	if (!(input = read_file(argv[1])))
+	input = read_file(argv[1]);
+	if (!input)
 		print_error();
 	if (!(sha = check_input(input)))
 		print_error();
-	grd = (int*)malloc(sizeof(int));
-	*grd = min_gridsize(sha * 4);
 	if (!(arr = init_array(sha)))
 		print_error();
 	input_to_array(input, arr, sha);
 	if (!compare_shapes(arr, sha))
 		print_error();
-	fillit(arr, grd, sha);
-	// free(grd);
-	// i = 0;
-	// while (*arr[i] != '\0')
-	// {
-	// 	free(arr[i++]);
-	// }
+	fillit(arr, min_gridsize(sha * 4), sha);
 	return (0);
 }

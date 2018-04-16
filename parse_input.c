@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_array.c                                   :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabdulha <yabdulha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/12 11:46:45 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/16 20:14:06 by yabdulha         ###   ########.fr       */
+/*   Created: 2018/04/16 20:26:45 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/04/16 20:40:07 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,19 @@ void					input_to_array(char *s, t_uint **dst, int shapes)
 		dst[i][4] = 0;
 		dst[i][5] = 0;
 	}
+}
+
+char					*read_file(char *file)
+{
+	char	*buf;
+	int		fd;
+
+	if (!(buf = (char *)malloc(sizeof(*buf) * (26 * 21))))
+		return (NULL);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	read(fd, buf, (sizeof(*buf) * ((26 * 21))));
+	close(fd);
+	return (buf);
 }

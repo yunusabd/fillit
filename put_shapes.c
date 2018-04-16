@@ -6,7 +6,7 @@
 /*   By: yabdulha <yabdulha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 18:30:42 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/16 20:09:46 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:59:45 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** gridsize.
 */
 
-static t_uint	*create_map(int *gridsize)
+static t_uint	*create_map(int gridsize)
 {
 	int		i;
 	t_uint	*map;
@@ -27,9 +27,9 @@ static t_uint	*create_map(int *gridsize)
 	if (!(map = (t_uint*)malloc(sizeof(*map) * 32)))
 		return (NULL);
 	zero = ~0;
-	while (i < *gridsize)
+	while (i < gridsize)
 	{
-		map[i] = zero >> *gridsize;
+		map[i] = zero >> gridsize;
 		i++;
 	}
 	while (i < 32)
@@ -101,7 +101,7 @@ int				increase_gridsize(t_uint **s, t_uint *m, int i, int *gridsize)
 		X = 0;
 		*gridsize += 1;
 		free(m);
-		m = create_map(gridsize);
+		m = create_map(*gridsize);
 		return (put_shapes(s, m, i, gridsize));
 	}
 	else
@@ -111,7 +111,7 @@ int				increase_gridsize(t_uint **s, t_uint *m, int i, int *gridsize)
 	}
 }
 
-void			fillit(t_uint **arr, int *gridsize, int shapes)
+void			fillit(t_uint **arr, int gridsize, int shapes)
 {
 	int		i;
 	t_uint	*map;
@@ -119,13 +119,17 @@ void			fillit(t_uint **arr, int *gridsize, int shapes)
 
 	if (!(map = create_map(gridsize)))
 		print_error();
-	put_shapes(arr, map, 0, gridsize);
+	put_shapes(arr, map, 0, &gridsize);
 	result = print_shapes(arr, gridsize, shapes);
 	i = 0;
-	while (i < *gridsize)
+	while (i < gridsize)
 	{
 		ft_putstr(result[i]);
 		ft_putchar('\n');
 		i++;
 	}
+	i = 0;
+	while (arr[i] != NULL)
+		free(arr[i++]);
+	free(arr);
 }

@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:40:39 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/16 20:10:35 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/04/16 21:32:43 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 ** Creates a char array with the final gridsize and fills it with dots.
 */
 
-static char		**init_map(int *gridsize)
+static char		**init_map(int gridsize)
 {
 	char	**map;
 	int		i;
 	int		j;
 
-	map = (char**)malloc(sizeof(*map) * (*gridsize));
+	map = (char**)malloc(sizeof(*map) * (gridsize));
 	i = 0;
 	j = 0;
-	while (i < *gridsize)
+	while (i < gridsize)
 	{
-		map[i] = (char*)malloc(sizeof(**map) * (*gridsize + 1));
+		map[i] = (char*)malloc(sizeof(**map) * (gridsize + 1));
 		j = 0;
-		while (j < *gridsize)
+		while (j < gridsize)
 		{
 			map[i][j] = '.';
 			j++;
@@ -40,13 +40,12 @@ static char		**init_map(int *gridsize)
 	return (map);
 }
 
-
 /*
 ** Converts the shapes into letters of the alphabet, putting them on the map
 ** using the X and Y values stored within each shape.
 */
 
-char			**print_shapes(t_uint **s, int *gridsize, int shapes)
+char			**print_shapes(t_uint **s, int gridsize, int shapes)
 {
 	int		i;
 	int		k;
@@ -61,7 +60,7 @@ char			**print_shapes(t_uint **s, int *gridsize, int shapes)
 		while (j < shape_height(s[i]) && (k = 0) == 0)
 		{
 			masked = s[i][j] >> X;
-			while (k < *gridsize)
+			while (k < gridsize)
 			{
 				if (masked & (1 << (sizeof(t_uint) * 8 - 1)))
 					map[Y + j][k] = 'A' + i;
