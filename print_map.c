@@ -6,11 +6,15 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:40:39 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 22:44:02 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/16 20:10:35 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+** Creates a char array with the final gridsize and fills it with dots.
+*/
 
 static char		**init_map(int *gridsize)
 {
@@ -36,12 +40,18 @@ static char		**init_map(int *gridsize)
 	return (map);
 }
 
-char			**print_shapes(uint **s, int *gridsize, int shapes)
+
+/*
+** Converts the shapes into letters of the alphabet, putting them on the map
+** using the X and Y values stored within each shape.
+*/
+
+char			**print_shapes(t_uint **s, int *gridsize, int shapes)
 {
 	int		i;
 	int		k;
 	int		j;
-	uint	masked;
+	t_uint	masked;
 	char	**map;
 
 	map = init_map(gridsize);
@@ -53,8 +63,8 @@ char			**print_shapes(uint **s, int *gridsize, int shapes)
 			masked = s[i][j] >> X;
 			while (k < *gridsize)
 			{
-				if (masked & (1 << (sizeof(uint) * 8 - 1)))
-					map[s[i][4] + j][k] = 'A' + i;
+				if (masked & (1 << (sizeof(t_uint) * 8 - 1)))
+					map[Y + j][k] = 'A' + i;
 				masked = masked << 1;
 				k++;
 			}

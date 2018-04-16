@@ -6,7 +6,7 @@
 #    By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/25 19:04:39 by volhansalai       #+#    #+#              #
-#    Updated: 2018/04/15 18:45:00 by vsalai           ###   ########.fr        #
+#    Updated: 2018/04/16 20:18:02 by yabdulha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -159,7 +159,7 @@ clean:
 	rm -rf $(LIBFT_OBJS)
 
 fclean: clean
-	/bin/rm -rf libft.a
+	/bin/rm -rf libft/libft.a
 	/bin/rm -rf $(NAME)
 	
 re: fclean all

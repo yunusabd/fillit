@@ -6,36 +6,15 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/08 19:49:24 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 23:26:36 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/16 19:28:07 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-unsigned int		read_shape(char *s)
-{
-	int				i;
-	int				j;
-	unsigned int	result;
-
-	i = 0;
-	j = 0;
-	result = 0;
-	while (i < 4)
-	{
-		if (s[i] == '#')
-		{
-			result = result ^ 1;
-			result = result << 1;
-		}
-		else if (s[i] == '.')
-			result = result << 1;
-		i++;
-		j++;
-	}
-	result = result >> 1;
-	return (result);
-}
+/*
+** Calculate the minimum gridsize depending on the number of shapes.
+*/
 
 static int			min_gridsize(int shapes)
 {
@@ -78,16 +57,16 @@ int					main(int argc, char **argv)
 		return (0);
 	}
 	if (!(input = read_file(argv[1])))
-		return (0);
+		print_error();
 	if (!(sha = check_input(input)))
-		return (0);
+		print_error();
 	grd = (int*)malloc(sizeof(int));
 	*grd = min_gridsize(sha * 4);
 	if (!(arr = init_array(sha)))
-		return (0);
+		print_error();
 	input_to_array(input, arr, sha);
 	if (!compare_shapes(arr, sha))
-		return (0);
+		print_error();
 	fillit(arr, grd, sha);
 	// free(grd);
 	// i = 0;

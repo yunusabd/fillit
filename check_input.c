@@ -6,7 +6,7 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 13:25:36 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 22:36:34 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/16 20:03:12 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				check_input(char *s)
 {
 	int		len;
 
-	len = strlen(s);
+	len = ft_strlen(s);
 	if (!(((len + 1) % 21) == 0))
 		return (0);
 	if (!((count_char(s, '#') % 4) == 0))

@@ -6,13 +6,23 @@
 /*   By: vsalai <vsalai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 15:51:22 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/15 19:21:31 by vsalai           ###   ########.fr       */
+/*   Updated: 2018/04/16 20:13:17 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int				shape_height(uint *s)
+void			print_error(void)
+{
+	ft_putstr("error\n");
+	exit(0);
+}
+
+/*
+** Returns the height of a shape.
+*/
+
+int				shape_height(t_uint *s)
 {
 	if (s[1] == 0)
 		return (1);
@@ -24,19 +34,23 @@ int				shape_height(uint *s)
 		return (4);
 }
 
-void			toggle_shape(uint *shape, uint **map)
+/*
+** Puts or removes a shape from the map.
+*/
+
+void			toggle_shape(t_uint *s, t_uint **map)
 {
-	uint	*m;
-	uint	s_cpy;
+	t_uint	*m;
+	t_uint	s_cpy;
 	int		x;
-	int		l;
+	int		y;
 
 	m = *map;
-	x = shape[5];
-	l = shape[4];
-	s_cpy = *shape;
-	m[l] ^= (shape[0] >> x);
-	m[l + 1] ^= (shape[1] >> x);
-	m[l + 2] ^= (shape[2] >> x);
-	m[l + 3] ^= (shape[3] >> x);
+	x = s[4];
+	y = s[5];
+	s_cpy = *s;
+	m[y] ^= (s[0] >> x);
+	m[y + 1] ^= (s[1] >> x);
+	m[y + 2] ^= (s[2] >> x);
+	m[y + 3] ^= (s[3] >> x);
 }
